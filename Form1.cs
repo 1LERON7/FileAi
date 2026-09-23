@@ -35,5 +35,17 @@ namespace FileAi
             }
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using SaveFileDialog dialog = new SaveFileDialog();
+            IFileService file_service = new FileService();
+            dialog.FileName = file.Name;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                file_service.DownloadFileByIdAsync(id);
+            }
+        }
     }
 }
