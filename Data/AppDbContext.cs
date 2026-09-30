@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FileAi.Data
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         public DbSet<Models.File> Files { get; set; } = null!;
 

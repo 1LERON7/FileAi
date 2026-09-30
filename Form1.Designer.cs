@@ -30,6 +30,7 @@
         {
             button1 = new Button();
             btnDownload = new Button();
+            listBox1 = new ListBox();
             SuspendLayout();
             // 
             // button1
@@ -54,11 +55,21 @@
             btnDownload.UseVisualStyleBackColor = true;
             btnDownload.Click += button2_Click;
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.Location = new Point(105, 16);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(582, 379);
+            listBox1.TabIndex = 2;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            // 
             // btnUpload
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(830, 482);
+            Controls.Add(listBox1);
             Controls.Add(btnDownload);
             Controls.Add(button1);
             Name = "btnUpload";
@@ -71,5 +82,6 @@
 
         private Button button1;
         private Button btnDownload;
+        private ListBox listBox1;
     }
 }

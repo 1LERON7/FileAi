@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileAi.Models
 {
-    internal class File
+    public class File
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -15,5 +15,7 @@ namespace FileAi.Models
         public string Type { get; set; } = string.Empty;
         public DateTime UploadedAt { get; set; }
         public string Path { get; set; } = string.Empty;
+
+        public string DisplayText => $"[{Id}] {UnicName} | ({Size / 1024:F2} KB | {Type} | Uploaded: {UploadedAt})";
     }
 }

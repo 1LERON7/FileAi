@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace FileAi.Services
 {
-    internal class FileService : IFileService
+    public class FileService : IFileService
     {
         AppDbContext context = new AppDbContext();
         private const string pathDirectory = @"Z:\Repos\FileAi\Storage\";
@@ -39,7 +40,7 @@ namespace FileAi.Services
                 };
 
 
-                File.Copy(fileInfo.FullName, Path.Combine(pathDirectory, file.UnicName));
+                File.Copy(fileInfo.FullName, Path.Combine(pathDirectory, file.UnicName), true);
 
 
                 context.Files.Add(file);
@@ -56,32 +57,16 @@ namespace FileAi.Services
             throw new NotImplementedException();
         }
 
-        public async Task<Models.File> DownloadFileByIdAsync(int id)
+        public async Task DownloadFileByIdAsync(Models.File file, string destinationPath)
         {
-            //AppDbContext context = new AppDbContext();
-
-            //if (id <= 0)
-            //    throw new ArgumentException($"[File Service] Invalid file ID: {id}");
-
-            //var file = await context.Files.FindAsync(id);
-
-            //if (file == null)
-            //{
-            //    throw new FileNotFoundException($"[File Service] File with ID {id} not found.");
-            //}
-            //else
-            //{
-            //     string filePath = Path.Combine(pathDirectory, file.UnicName);
-            //    File.Copy(filePath, )
-            //}
-
-            throw new NotImplementedException();
-
+            string filePath = Path.Combine(pathDirectory, file.UnicName);
+            File.Copy(filePath, destinationPath, true);
         }
 
-        public async Task<List<Models.File>> GetAllFilesAsync()
+        public async Task<BindingList<Models.File>> GetAllFilesAsync()
         {
-            return await context.Files.ToListAsync();
+            var files = await context.Files.ToListAsync();
+            return new BindingList<Models.File>(files);
         }
 
         public Task RenameFileByIdAsync(int id, string newName)

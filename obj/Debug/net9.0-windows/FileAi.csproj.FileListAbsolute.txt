@@ -138,3 +138,4 @@ Z:\Repos\FileAi\obj\Debug\net9.0-windows\FileAi.pdb
 Z:\Repos\FileAi\obj\Debug\net9.0-windows\FileAi.genruntimeconfig.cache
 Z:\Repos\FileAi\obj\Debug\net9.0-windows\ref\FileAi.dll
 Z:\Repos\FileAi\obj\Debug\net9.0-windows\FileAi.btnUpload.resources
+Z:\Repos\FileAi\obj\Debug\net9.0-windows\FileAi.sourcelink.json

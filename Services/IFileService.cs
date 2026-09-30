@@ -1,9 +1,10 @@
-﻿using System;
+﻿using FileAi.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FileAi.Models;
 
 namespace FileAi.Services
 {
@@ -11,8 +12,10 @@ namespace FileAi.Services
     {
         // async; Загрузить файл.
         public Task<Models.File> UploadFileAsync(string filePath);
-        public Task<List<Models.File>> GetAllFilesAsync();
-        public Task<Models.File> DownloadFileByIdAsync(int id);
+
+        // BindingList<> Тоже самое что и List<>, но умеет уведомить UI об изменениях списка.
+        public Task<BindingList<Models.File>> GetAllFilesAsync();   
+        public Task DownloadFileByIdAsync(Models.File file, string destinationPath);
         public Task DeleteFileByIdAsync(int id);
         public Task RenameFileByIdAsync(int id, string newName);
     }
