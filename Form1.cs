@@ -20,6 +20,10 @@ namespace FileAi
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            ListBox1();
+        }
+        private async void ListBox1()
+        {
             try
             {
                 var files = await fileController.GetAllFilesAsync();
@@ -34,7 +38,6 @@ namespace FileAi
                 MessageBox.Show($"Ошибка при загрузке файлов: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private async void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -53,6 +56,8 @@ namespace FileAi
             {
                 string filePath = openFileDialog.FileName;
                 await fileController.UploadFileAsync(filePath);
+
+                ListBox1();
             }
             catch (ArgumentException ex)
             {
@@ -66,28 +71,67 @@ namespace FileAi
             {
                 MessageBox.Show($"Ошибка при загрузке файла: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
-            
-        }
 
+
+        }
         private async void button2_Click(object sender, EventArgs e)
         {
-            using SaveFileDialog dialog = new SaveFileDialog();
-
             // FileName - полный путь к файлу
             var file = (Models.File)listBox1.SelectedItem;
-            dialog.FileName = file.UnicName; // SelectedItem - Имя выбранного файла
-            string destinationPath = dialog.FileName; // Путь куда сохраняем
-            var selectedId = (int)listBox1.SelectedValue;
 
-            if (dialog.ShowDialog() != DialogResult.OK)
+            using SaveFileDialog dialog = new SaveFileDialog();
+            dialog.FileName = file.UnicName; // SelectedItem - Имя выбранного файла
+            dialog.FileName = file.Name; // SelectedItem - Имя выбранного файла
+
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string destinationPath = dialog.FileName; // Путь куда сохраняем
+                var selectedId = (int)listBox1.SelectedValue;
+
+                try
+                {
+                    await fileController.DowloadFile(selectedId, destinationPath);
+
+                    MessageBox.Show("Файл успешно загружен", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show(ex.Message, "Некорректные данные", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (FileNotFoundException ex)
+                {
+                    MessageBox.Show(ex.Message, "Файл не найден", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show($"Ошибка при сохранении файла: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Непредвиденная ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
                 return;
+
+
+
+        }
+        private async void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private async void button2_Click_1(object sender, EventArgs e)
+        {
+            var selectedId = (int)listBox1.SelectedValue;
 
             try
             {
-                await fileController.DowloadFile(selectedId, destinationPath);
+                await fileController.DeletedFileByIdAsync(selectedId);
+                MessageBox.Show("Файл успешно удален", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                MessageBox.Show("Файл успешно загружен", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ListBox1();
             }
             catch (ArgumentException ex)
             {
@@ -99,17 +143,13 @@ namespace FileAi
             }
             catch (IOException ex)
             {
-                MessageBox.Show($"Ошибка при сохранении файла: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка при удалении файла: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Непредвиденная ошибка: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка при удалении файла: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
-
-        }
-        private async void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

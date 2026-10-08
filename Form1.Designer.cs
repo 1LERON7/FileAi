@@ -28,15 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            listBox1 = new ListBox();
+            button2 = new Button();
             button1 = new Button();
             btnDownload = new Button();
-            listBox1 = new ListBox();
             SuspendLayout();
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.Location = new Point(124, 16);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(582, 379);
+            listBox1.TabIndex = 2;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            // 
+            // button2
+            // 
+            button2.Cursor = Cursors.Hand;
+            button2.Location = new Point(491, 429);
+            button2.Name = "button2";
+            button2.Size = new Size(140, 41);
+            button2.TabIndex = 3;
+            button2.Text = "Delete";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
             // 
             // button1
             // 
             button1.Cursor = Cursors.Hand;
-            button1.Location = new Point(308, 429);
+            button1.Location = new Point(345, 429);
             button1.Name = "button1";
             button1.Size = new Size(140, 41);
             button1.TabIndex = 0;
@@ -47,7 +68,7 @@
             // btnDownload
             // 
             btnDownload.Cursor = Cursors.Hand;
-            btnDownload.Location = new Point(162, 429);
+            btnDownload.Location = new Point(199, 429);
             btnDownload.Name = "btnDownload";
             btnDownload.Size = new Size(140, 41);
             btnDownload.TabIndex = 1;
@@ -55,20 +76,12 @@
             btnDownload.UseVisualStyleBackColor = true;
             btnDownload.Click += button2_Click;
             // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(105, 16);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(582, 379);
-            listBox1.TabIndex = 2;
-            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
-            // 
             // btnUpload
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(830, 482);
+            Controls.Add(button2);
             Controls.Add(listBox1);
             Controls.Add(btnDownload);
             Controls.Add(button1);
@@ -79,9 +92,9 @@
         }
 
         #endregion
-
+        private ListBox listBox1;
+        private Button button2;
         private Button button1;
         private Button btnDownload;
-        private ListBox listBox1;
     }
 }

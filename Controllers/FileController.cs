@@ -45,6 +45,13 @@ namespace FileAi.Controllers
             return await fileService.UploadFileAsync(filePath);
         }
 
+        public async Task DeletedFileByIdAsync(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException($"[File Controller] Invalid file ID: {id}");
+
+            await fileService.DeleteFileByIdAsync(id);
+        }
         public async Task<BindingList<Models.File>> GetAllFilesAsync()
         {
             return await fileService.GetAllFilesAsync();

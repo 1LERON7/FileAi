@@ -52,9 +52,21 @@ namespace FileAi.Services
 
         }
 
-        public Task DeleteFileByIdAsync(int id)
+        public async Task DeleteFileByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var file = await context.Files.FindAsync(id);
+
+            if (file != null)
+            {
+                context.Files.Remove(file);
+                await context.SaveChangesAsync();
+
+                File.Delete(Path.Combine(pathDirectory, file.UnicName));
+            }
+            else
+            {
+                throw new FileNotFoundException($"[File Service] File with ID {id} not found.");
+            }
         }
 
         public async Task DownloadFileByIdAsync(Models.File file, string destinationPath)

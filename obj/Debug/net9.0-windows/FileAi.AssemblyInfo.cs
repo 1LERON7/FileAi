@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FileAi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b8b754363d05d779252aed0593d430326bf2a40")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff96a7074063f717ea6f13d1acf1e241b05ced60")]
 [assembly: System.Reflection.AssemblyProductAttribute("FileAi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FileAi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
